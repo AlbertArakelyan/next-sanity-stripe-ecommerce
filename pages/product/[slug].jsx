@@ -8,6 +8,8 @@ import {
 
 import { Product } from '@/components';
 
+import { useStateContext } from '../../context/StateProvider';
+
 import { client, urlFor } from '@/lib/clinet';
 
 
@@ -18,6 +20,7 @@ const ProductDeatils = ({ product, products }) => {
     details,
     price,
   } = product;
+  const { decQty, incQty, qty, onAdd } = useStateContext();
 
   return (
     <div>
@@ -56,19 +59,19 @@ const ProductDeatils = ({ product, products }) => {
           <div className="quantity">
             <h3>Quantity: </h3>
             <p className="quantity-desc">
-              <span className="minus" onClick={() => {}}>
+              <span className="minus" onClick={decQty}>
                 <AiOutlineMinus />
               </span>
               <span className="num">
-                0
+                {qty}
               </span>
-              <span className="plus" onClick={() => {}}>
+              <span className="plus" onClick={incQty}>
                 <AiOutlinePlus />
               </span>
             </p>
           </div>
           <div className="buttons">
-            <button className="add-to-cart" onClick={() => {}} type="button">
+            <button className="add-to-cart" onClick={() => onAdd(product, qty)} type="button">
               Add to Cart
             </button>
             <button className="buy-now" onClick={() => {}} type="button">
